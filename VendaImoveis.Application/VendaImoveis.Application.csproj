@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VendaImoveis.Domain\VendaImoveis.Domain.csproj" />
+    <ProjectReference Include="..\VendaImoveis.Infrastructure\VendaImoveis.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
