@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using VendaImoveis.Domain.Core;
-using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Infrastructure.Context;
 using VendaImoveis.Domain.Core.Params;
+using VendaImoveis.Domain.Interfaces.Common;
 
-namespace VendaImoveis.Infrastructure.Repositories
+namespace VendaImoveis.Infrastructure.Repositories.Common
 {
     public class BaseReadOnlyRepository<TEntity> : IBaseReadOnlyRepository<TEntity> where TEntity : Registro
     {
@@ -17,8 +17,8 @@ namespace VendaImoveis.Infrastructure.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, 
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, 
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
             bool asNoTracking = false, IPaginavel paginable = null)
         {
             var query = _dbSet.AsQueryable();

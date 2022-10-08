@@ -3,31 +3,26 @@ using VendaImoveis.Domain.Entities;
 
 namespace VendaImoveis.Infrastructure.Mappings
 {
-    public class ImobiliariaMap : RegistroMap<Imobiliaria>
+    public class ImobiliariaMap : UsuariosImobiliariaMap<Imobiliaria>
     {
         public override void Configure(EntityTypeBuilder<Imobiliaria> builder)
         {
             base.Configure(builder);
 
             builder.HasIndex(x => x.CNPJ).IsUnique();
+            builder.Property(x => x.CNPJ).HasMaxLength(17);
 
-            builder.HasIndex(x => x.Creci).IsUnique();
+            builder.HasOne(x => x.Endereco)
+                   .WithMany()
+                   .HasForeignKey(x => x.EnderecoId)
+                   .IsRequired()
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
 
-            builder.OwnsOne(x => x.Endereco, end =>
-            {
-                end.Property(c => c.Rua).HasMaxLength(100).IsRequired();
-
-                end.Property(c => c.Bairro).HasMaxLength(30).IsRequired();
-
-                end.Property(c => c.CEP).HasMaxLength(9).IsRequired();
-
-                end.Property(c => c.Cidade).HasMaxLength(20).IsRequired();
-
-                end.Property(c => c.Estado).HasMaxLength(2).IsRequired();
-            });
-
-            builder.HasMany(p => p.PropriedadesDaImobiliaria)
-                   .
+            builder.HasMany(x => x.Corretores)
+                   .WithOne(x => x.Imobiliaria)
+                   .HasForeignKey(x => x.ImobiliariaId)
+                   .IsRequired()
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
         }
     }
 }

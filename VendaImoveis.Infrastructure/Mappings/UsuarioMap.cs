@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VendaImoveis.Domain.Core;
 using Microsoft.EntityFrameworkCore;
+using VendaImoveis.Domain.Entities;
 
 namespace VendaImoveis.Infrastructure.Mappings
 {
@@ -10,27 +10,17 @@ namespace VendaImoveis.Infrastructure.Mappings
         {
             base.Configure(builder);
 
-            builder.Property(x => x.Nome).HasMaxLength(100).IsRequired();
-
             builder.HasIndex(x => x.NomeUsuario).IsUnique();
 
             builder.HasIndex(x => x.Email).IsUnique();
 
             builder.Property(x => x.Senha).IsRequired();
 
-            builder.Property(x => x.Telefone).IsRequired();
-
             builder.HasOne(x => x.TipoUsuario)
                    .WithMany()
                    .HasForeignKey(x => x.TipoUsuarioId)
                    .IsRequired()
                    .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(x => x.Imobiliaria)
-                   .WithMany()
-                   .HasForeignKey(x => x.ImobiliariaId)
-                   .IsRequired()
-                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

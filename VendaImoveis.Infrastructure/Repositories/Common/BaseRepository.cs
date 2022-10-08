@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VendaImoveis.Domain.Core;
-using VendaImoveis.Domain.Interfaces;
+using VendaImoveis.Domain.Interfaces.Common;
 using VendaImoveis.Infrastructure.Context;
 
-namespace VendaImoveis.Infrastructure.Repositories
+namespace VendaImoveis.Infrastructure.Repositories.Common
 {
     public class BaseRepository<TEntity> : BaseReadOnlyRepository<TEntity>, IBaseRepository<TEntity> where TEntity : Registro
     {
         public BaseRepository(ApplicationContext context) : base(context)
-        {}
+        { }
 
         public virtual async Task<TEntity> CreateAsync(TEntity model)
         {

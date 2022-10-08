@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 
-namespace VendaImoveis.Domain.Interfaces
+namespace VendaImoveis.Domain.Interfaces.Common
 {
     public interface IBaseReadOnlyRepository<TEntity> where TEntity : Registro
     {

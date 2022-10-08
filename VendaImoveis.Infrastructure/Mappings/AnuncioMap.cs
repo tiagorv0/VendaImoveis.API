@@ -11,17 +11,17 @@ namespace VendaImoveis.Infrastructure.Mappings
 
             builder.Property(x => x.Descricao).HasMaxLength(256);
 
-            builder.HasOne(x => x.Corretor)
-                   .WithMany()
-                   .HasForeignKey(x => x.CorretorId)
+            builder.HasOne(x => x.Imobiliaria)
+                   .WithMany(x => x.Anuncios)
+                   .HasForeignKey(x => x.ImobiliariaId)
                    .IsRequired()
-                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Propriedade)
-                   .WithMany()
+                   .WithMany(x => x.Anuncios)
                    .HasForeignKey(x => x.PropriedadeId)
                    .IsRequired()
-                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
         }
     }
 }

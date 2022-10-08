@@ -1,4 +1,4 @@
-﻿using VendaImoveis.Domain.Interfaces;
+﻿using VendaImoveis.Domain.Interfaces.Common;
 using VendaImoveis.Infrastructure.Context;
 
 namespace VendaImoveis.Infrastructure.UnitOfWork

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Entities;
 using VendaImoveis.Domain.Entities.Enums;
 using VendaImoveis.Infrastructure.Mappings;
@@ -12,10 +13,13 @@ namespace VendaImoveis.Infrastructure.Context
 
         }
 
+        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Imobiliaria> Imobiliarias { get; set; }
         public virtual DbSet<Corretor> Corretores { get; set; }
-        public virtual DbSet<ImobiliariaPropriedade> ImobiliariaPropriedades { get; set; }
+        public virtual DbSet<Anuncio> Anuncios { get; set; }
         public virtual DbSet<Propriedade> Propriedades { get; set; }
+        public virtual DbSet<Venda> Vendas { get; set; }
+        public virtual DbSet<Endereco> Enderecos { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
 
@@ -24,8 +28,16 @@ namespace VendaImoveis.Infrastructure.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
 
             modelBuilder.ApplyConfiguration(new EnumerationMap<UserRole>());
+            modelBuilder.Entity<UserRole>().HasData(Enumeration.GetAll<UserRole>());
 
             modelBuilder.ApplyConfiguration(new EnumerationMap<PropertyType>());
+            modelBuilder.Entity<PropertyType>().HasData(Enumeration.GetAll<PropertyType>());
+
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-ONMGS4I;Database=VendaImoveisDB;Integrated Security=true;pooling=true");
         }
     }
 }
