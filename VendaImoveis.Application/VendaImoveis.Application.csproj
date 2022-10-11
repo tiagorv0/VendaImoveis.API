@@ -18,10 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappers\" />
     <Folder Include="Params\" />
     <Folder Include="Validations\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@ namespace VendaImoveis.Domain.Entities
         public virtual Endereco Endereco { get; set; }
         public decimal AreaTotal { get; set; }
         public decimal? AreaConstruida { get; set; }
-        public int QuantidadeGaragem { get; set; }
+        public int? QuantidadeGaragem { get; set; }
         public decimal Valor { get; set; }
         public int TipoImovelId { get; set; }
         public virtual PropertyType TipoImovel { get; set; }

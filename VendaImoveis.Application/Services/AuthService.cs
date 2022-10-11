@@ -6,25 +6,43 @@ namespace VendaImoveis.Application.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IHttpContextAccessor _acessor;
+        private readonly IHttpContextAccessor _accessor;
 
-        public AuthService(IHttpContextAccessor acessor)
+        public AuthService(IHttpContextAccessor accessor)
         {
-            _acessor = acessor;
+            _accessor = accessor;
         }
 
-        public int? Id => throw new NotImplementedException();
+        public int? Id => GetClaimIdentity<int>("Id");
 
-        public string Name => throw new NotImplementedException();
+        public string Name => GetClaimIdentity<string>("Name");
 
-        public string RoleId => throw new NotImplementedException();
+        public string RoleId => GetClaimIdentity<string>("RoleId");
 
-        public string Email => throw new NotImplementedException();
+        public string Email => GetClaimIdentity<string>("email");
 
-        public string Token => throw new NotImplementedException();
+        public string Token => GetCustomHeader("Authorization");
 
-        public bool IsAuthenticated => _acessor.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
+        public bool IsAuthenticated => _accessor.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
 
-        public IEnumerable<Claim> GetClaimsIdentity() => _acessor.HttpContext.User.Claims.ToList();
+        public IEnumerable<Claim> GetClaimsIdentity() => _accessor.HttpContext.User.Claims.ToList();
+
+        private T GetClaimIdentity<T>(string type)
+        {
+            if (!IsAuthenticated) return default;
+
+            var claim = _accessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == type);
+            if (claim is null) return default;
+
+            return (T)Convert.ChangeType(claim.Value, typeof(T));
+        }
+
+        private string GetCustomHeader(string header)
+        {
+            var headers = _accessor.HttpContext.Request.Headers;
+            if (!headers.ContainsKey(header)) return null;
+
+            return headers[header].ToString();
+        }
     }
 }

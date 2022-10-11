@@ -7,10 +7,10 @@ namespace VendaImoveis.Domain.Interfaces.Common
 {
     public interface IBaseReadOnlyRepository<TEntity> where TEntity : Registro
     {
-        Task<TEntity> GetByIdAsync(int id,
-            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null);
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null,
-                                         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, bool asNoTracking = false, IPaginavel paginable = null);
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null, bool asNoTracking = true);
+        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, IPaginavel paginable = null);
+        Task<IEnumerable<TEntity>> GetAllAsync(IParams @params);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }
