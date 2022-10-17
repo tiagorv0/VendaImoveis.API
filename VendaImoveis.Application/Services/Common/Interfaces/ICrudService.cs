@@ -3,12 +3,13 @@ using VendaImoveis.Domain.Core.Params;
 
 namespace VendaImoveis.Application.Common.Interfaces
 {
-    public interface ICrudService<TEntity, TRequest, TResponse, TParams> :
-        IReadOnlyService<TEntity, TRequest, TResponse, TParams>
+    public interface ICrudService<TEntity, TRequest, TResponse, TParams, TSearch> :
+        IReadOnlyService<TEntity, TRequest, TResponse, TParams, TSearch>
         where TEntity : Registro
         where TRequest : class
         where TResponse : class
         where TParams : IParams
+        where TSearch : ISearch
     {
         Task<TResponse> CreateAsync(TRequest model);
         Task<TResponse> UpdateAsync(int id, TRequest model);

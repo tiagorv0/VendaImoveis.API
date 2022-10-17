@@ -8,13 +8,14 @@ using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services.Common
 {
-    public class CrudService<TEntity, TRequest, TResponse, TParams> :
-        ReadOnlyService<TEntity, TRequest, TResponse, TParams>,
-        ICrudService<TEntity, TRequest, TResponse, TParams>
+    public class CrudService<TEntity, TRequest, TResponse, TParams, TSearch> :
+        ReadOnlyService<TEntity, TRequest, TResponse, TParams, TSearch>,
+        ICrudService<TEntity, TRequest, TResponse, TParams, TSearch>
         where TEntity : Registro
         where TRequest : class
         where TResponse : class
         where TParams : IParams
+        where TSearch : ISearch
     {
         protected readonly new IBaseRepository<TEntity> _repository;
         protected readonly IUnitOfWork _unitOfWork;

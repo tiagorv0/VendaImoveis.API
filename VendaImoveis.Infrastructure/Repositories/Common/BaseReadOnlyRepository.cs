@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AspNetCore.IQueryable.Extensions;
+using AspNetCore.IQueryable.Extensions.Filter;
+using AspNetCore.IQueryable.Extensions.Pagination;
+using AspNetCore.IQueryable.Extensions.Sort;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Common;
@@ -42,6 +46,22 @@ namespace VendaImoveis.Infrastructure.Repositories.Common
         public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             return await GetQueryable(filter).CountAsync();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> SearchAsync(ISearch search)
+        {
+            return await _dbSet.AsQueryable().Apply(search).ToListAsync();
+        }
+
+        public virtual async Task<bool> ExistAsync(int id)
+        {
+            return await ExistAsync(x => x.Id.Equals(id));
+        }
+
+        public virtual async Task<bool> ExistAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            ArgumentNullException.ThrowIfNull(filter);
+            return await GetQueryable(filter).AnyAsync();
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(IParams @params)

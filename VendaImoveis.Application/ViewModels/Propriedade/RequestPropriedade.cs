@@ -12,7 +12,6 @@ namespace VendaImoveis.Application.ViewModels.Propriedade
         public int? QuantidadeGaragem { get; set; }
         public decimal Valor { get; set; }
         public int TipoImovelId { get; set; }
-        public IEnumerable<ResponseAnuncio> Anuncios { get; set; } = new List<ResponseAnuncio>();
         public bool FoiVendida { get; set; }
     }
 }

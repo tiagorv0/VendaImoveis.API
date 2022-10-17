@@ -7,12 +7,13 @@ using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services.Common
 {
-    public class ReadOnlyService<TEntity, TRequest, TResponse, TParams> :
-        IReadOnlyService<TEntity, TRequest, TResponse, TParams>
+    public class ReadOnlyService<TEntity, TRequest, TResponse, TParams, TSearch> :
+        IReadOnlyService<TEntity, TRequest, TResponse, TParams, TSearch>
         where TEntity : Registro
         where TRequest : class
         where TResponse : class
         where TParams : IParams
+        where TSearch : ISearch
     {
         protected readonly IBaseReadOnlyRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
@@ -42,7 +43,12 @@ namespace VendaImoveis.Application.Services.Common
         {
             var filter = @params as IFiltrable<TEntity>;
 
-            return _mapper.Map<IEnumerable<TResponse>>(await _repository.GetAllAsync(filter.Filter(), paginable: paginavel)); 
+            return _mapper.Map<IEnumerable<TResponse>>(await _repository.GetAllAsync(filter.Filter(), paginable: paginavel));
+        }
+
+        public virtual async Task<IEnumerable<TResponse>> SearchAsync(ISearch search)
+        {
+            return _mapper.Map<IEnumerable<TResponse>>(await _repository.SearchAsync(search));
         }
     }
 }

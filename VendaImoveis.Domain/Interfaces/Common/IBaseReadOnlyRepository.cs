@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 
@@ -12,5 +11,8 @@ namespace VendaImoveis.Domain.Interfaces.Common
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null);
         Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<IEnumerable<TEntity>> SearchAsync(ISearch search);
+        Task<bool> ExistAsync(int id);
+        Task<bool> ExistAsync(Expression<Func<TEntity, bool>> filter);
     }
 }

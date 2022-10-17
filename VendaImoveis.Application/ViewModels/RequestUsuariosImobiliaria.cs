@@ -2,7 +2,7 @@
 
 namespace VendaImoveis.Application.ViewModels
 {
-    public class RequestUsuarioImobiliaria
+    public class RequestUsuariosImobiliaria
     {
         public string Nome { get; set; }
         public string CRECI { get; set; }

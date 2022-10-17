@@ -5,7 +5,7 @@ using VendaImoveis.Domain.Core;
 
 namespace VendaImoveis.Application.ViewModels.Imobiliaria
 {
-    public class ResponseImobiliaria : ResponseUsuarioImobiliaria
+    public class ResponseImobiliaria : ResponseUsuariosImobiliaria
     {
         public string CNPJ { get; set; }
         public EnderecoViewModel Endereco { get; set; }
