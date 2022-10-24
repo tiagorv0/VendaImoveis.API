@@ -10,7 +10,7 @@ namespace VendaImoveis.Infrastructure.Mappings
             base.Configure(builder);
 
             builder.HasIndex(x => x.CNPJ).IsUnique();
-            builder.Property(x => x.CNPJ).HasMaxLength(17);
+            builder.Property(x => x.CNPJ).HasMaxLength(18);
 
             builder.HasOne(x => x.Endereco)
                    .WithMany()

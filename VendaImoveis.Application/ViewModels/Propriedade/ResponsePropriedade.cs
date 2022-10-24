@@ -1,5 +1,4 @@
-﻿using VendaImoveis.Application.ViewModels.Anuncio;
-using VendaImoveis.Application.ViewModels.Endereco;
+﻿using VendaImoveis.Application.ViewModels.Endereco;
 using VendaImoveis.Application.ViewModels.Enums;
 using VendaImoveis.Domain.Core;
 
@@ -14,7 +13,6 @@ namespace VendaImoveis.Application.ViewModels.Propriedade
         public int? QuantidadeGaragem { get; set; }
         public decimal Valor { get; set; }
         public PropertyTypeViewModel TipoImovel { get; set; }
-        public IEnumerable<ResponseAnuncio> Anuncios { get; set; } = new List<ResponseAnuncio>();
         public bool FoiVendida { get; set; }
     }
 }

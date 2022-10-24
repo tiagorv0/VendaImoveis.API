@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using VendaImoveis.Application.Utils;
 using VendaImoveis.Application.ViewModels.Usuario;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Entities.Enums;
@@ -16,7 +17,7 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.NomeUsuario)
-                .MustAsync((username, cancelToken) => usuarioRepository.ExistAsync(x => x.NomeUsuario.Equals(username)))
+                .Must(username => !usuarioRepository.ExistAsync(x => x.NomeUsuario.Equals(username)).Result)
                 .WithMessage("{PropertyName} Já existe um usuário com usuário informado.");
 
             RuleFor(x => x.Email)
@@ -24,7 +25,7 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.Email)
-                .MustAsync((email, cancelToken) => usuarioRepository.ExistAsync(x => x.Email.Equals(email)))
+                .Must(email => !usuarioRepository.ExistAsync(x => x.Email.Equals(email)).Result)
                 .WithMessage("{PropertyName} Já existe um usuário com e-mail informado.");
 
             RuleFor(x => x.Senha)
@@ -33,7 +34,7 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.Senha)
-                .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$_!%*?&-])[A-Za-z\d@$!_%*?&-]{8,}$")
+                .Must(senha => RegexValidate.SenhaEhValido(senha))
                 .WithMessage("Senha deve conter o mínimo de oito caracteres, pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
 
             RuleFor(x => x.TipoUsuarioId)

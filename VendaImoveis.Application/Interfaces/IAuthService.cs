@@ -1,12 +1,13 @@
 ﻿using System.Security.Claims;
+using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Interfaces
 {
-    public interface IAuthService
+    public interface IAuthService : IService
     {
         int? Id { get; }
         string Name { get; }
-        string RoleId { get; }
+        string Role { get; }
         string Email { get; }
         string Token { get; }
         bool IsAuthenticated { get; }

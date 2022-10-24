@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using VendaImoveis.API.Configuration;
 using VendaImoveis.API.Filters;
 using VendaImoveis.Infrastructure.Context;
 
@@ -9,11 +10,14 @@ builder.Services.AddControllers(opts =>
     opts.Filters.Add<ApplicationExceptionFilter>();
 });
 
+builder.Services.ResolveDependencies();
+builder.Services.AddIdentityAndJwtConfiguration(builder.Configuration);
+builder.Services.AddSwagger();
+
 builder.Services.AddDbContext<ApplicationContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -25,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

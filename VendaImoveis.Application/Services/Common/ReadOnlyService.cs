@@ -39,11 +39,9 @@ namespace VendaImoveis.Application.Services.Common
             return _mapper.Map<TResponse>(exist);
         }
 
-        public virtual async Task<IEnumerable<TResponse>> SearchAsync(TParams @params, IPaginavel paginavel)
+        public virtual async Task<IEnumerable<TResponse>> GetAllAsync(TParams @params)
         {
-            var filter = @params as IFiltrable<TEntity>;
-
-            return _mapper.Map<IEnumerable<TResponse>>(await _repository.GetAllAsync(filter.Filter(), paginable: paginavel));
+            return _mapper.Map<IEnumerable<TResponse>>(await _repository.GetAllAsync(@params));
         }
 
         public virtual async Task<IEnumerable<TResponse>> SearchAsync(ISearch search)

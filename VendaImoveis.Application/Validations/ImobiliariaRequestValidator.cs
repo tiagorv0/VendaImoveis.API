@@ -1,8 +1,11 @@
 ﻿using FluentValidation;
+using VendaImoveis.Application.Utils;
 using VendaImoveis.Application.ViewModels.Imobiliaria;
 using VendaImoveis.Domain.Entities;
 using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Domain.Interfaces.Common;
+using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Interfaces;
 
 namespace VendaImoveis.Application.Validations
 {
@@ -10,17 +13,21 @@ namespace VendaImoveis.Application.Validations
         UsuarioImobiliariaRequestValidator<RequestImobiliaria, Imobiliaria>
     {
         public ImobiliariaRequestValidator(
-            IBaseReadOnlyRepository<Imobiliaria> repository,
-            IUsuarioRepository usuarioRepository) :
+            IImobiliariaRepository repository,
+            IUsuarioRepository usuarioRepository, IAuthService service) :
             base(repository, usuarioRepository)
         {
             RuleFor(x => x.CNPJ)
-                .MustAsync((cnpj, cancelToken) => repository.ExistAsync(x => x.CNPJ.Equals(cnpj)))
+                .ValidateCNPJ(repository, service)
                 .WithMessage("{PropertyName} já existente");
 
             RuleFor(x => x.CNPJ)
-                .Length(17)
+                .Length(18)
                 .NotEmpty();
+
+            RuleFor(x => x.CNPJ)
+                .Must(cnpj => RegexValidate.CNPJEhValido(cnpj))
+                .WithMessage("{PropertyName} não é válido!");
 
             RuleFor(x => x.Endereco)
                 .SetValidator(new EnderecoValidator());

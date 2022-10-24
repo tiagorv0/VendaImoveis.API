@@ -6,6 +6,6 @@ namespace VendaImoveis.Application.Params.Search
     {
         public int? Limit { get; set; }
         public int? Offset { get; set; }
-        public string Sort { get; set; }
+        public string? Sort { get; set; }
     }
 }

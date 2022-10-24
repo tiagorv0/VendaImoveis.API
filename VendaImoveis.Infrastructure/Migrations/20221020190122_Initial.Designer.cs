@@ -12,7 +12,7 @@ using VendaImoveis.Infrastructure.Context;
 namespace VendaImoveis.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221008194149_Initial")]
+    [Migration("20221020190122_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -239,8 +239,8 @@ namespace VendaImoveis.Infrastructure.Migrations
 
                     b.Property<string>("CNPJ")
                         .IsRequired()
-                        .HasMaxLength(17)
-                        .HasColumnType("nvarchar(17)");
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
 
                     b.Property<string>("CRECI")
                         .IsRequired()
@@ -316,7 +316,7 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuantidadeGaragem")
+                    b.Property<int?>("QuantidadeGaragem")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoImovelId")
@@ -412,7 +412,7 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("VendaImoveis.Domain.Entities.Propriedade", "Propriedade")
-                        .WithMany("Anuncios")
+                        .WithMany()
                         .HasForeignKey("PropriedadeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -519,11 +519,6 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.Navigation("Anuncios");
 
                     b.Navigation("Corretores");
-                });
-
-            modelBuilder.Entity("VendaImoveis.Domain.Entities.Propriedade", b =>
-                {
-                    b.Navigation("Anuncios");
                 });
 #pragma warning restore 612, 618
         }

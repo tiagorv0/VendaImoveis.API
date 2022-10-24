@@ -18,7 +18,7 @@ namespace VendaImoveis.Infrastructure.Mappings
                    .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Propriedade)
-                   .WithMany(x => x.Anuncios)
+                   .WithMany()
                    .HasForeignKey(x => x.PropriedadeId)
                    .IsRequired()
                    .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);

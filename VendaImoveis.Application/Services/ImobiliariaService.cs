@@ -17,5 +17,11 @@ namespace VendaImoveis.Application.Services
         public ImobiliariaService(IBaseRepository<Imobiliaria> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<RequestImobiliaria> validator) : base(repository, mapper, unitOfWork, validator)
         {
         }
+
+        public override Task<ResponseImobiliaria> CreateAsync(RequestImobiliaria model)
+        {
+            model.Usuario.TipoUsuarioId = 1;
+            return base.CreateAsync(model);
+        }
     }
 }

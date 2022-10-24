@@ -12,7 +12,7 @@ namespace VendaImoveis.Application.Common.Interfaces
     {
         Task<int> CountAsync(TParams @params);
         Task<TResponse> GetByIdAsync(int id);
-        Task<IEnumerable<TResponse>> SearchAsync(TParams @params, IPaginavel paginavel);
+        Task<IEnumerable<TResponse>> GetAllAsync(TParams @params);
         Task<IEnumerable<TResponse>> SearchAsync(ISearch search);
     }
 }

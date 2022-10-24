@@ -17,7 +17,7 @@ namespace VendaImoveis.Application.Services
 
         public string Name => GetClaimIdentity<string>("Name");
 
-        public string RoleId => GetClaimIdentity<string>("RoleId");
+        public string Role => GetClaimIdentity<string>("Role");
 
         public string Email => GetClaimIdentity<string>("email");
 

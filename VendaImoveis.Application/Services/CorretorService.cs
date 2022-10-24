@@ -17,5 +17,11 @@ namespace VendaImoveis.Application.Services
         public CorretorService(IBaseRepository<Corretor> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<RequestCorretor> validator) : base(repository, mapper, unitOfWork, validator)
         {
         }
+
+        public override Task<ResponseCorretor> CreateAsync(RequestCorretor model)
+        {
+            model.Usuario.TipoUsuarioId = 2;
+            return base.CreateAsync(model);
+        }
     }
 }

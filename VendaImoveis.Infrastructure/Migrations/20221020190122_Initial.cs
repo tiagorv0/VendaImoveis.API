@@ -60,7 +60,7 @@ namespace VendaImoveis.Infrastructure.Migrations
                     EnderecoId = table.Column<int>(type: "int", nullable: false),
                     AreaTotal = table.Column<decimal>(type: "decimal(20,2)", precision: 20, scale: 2, nullable: false),
                     AreaConstruida = table.Column<decimal>(type: "decimal(20,2)", precision: 20, scale: 2, nullable: true),
-                    QuantidadeGaragem = table.Column<int>(type: "int", nullable: false),
+                    QuantidadeGaragem = table.Column<int>(type: "int", nullable: true),
                     Valor = table.Column<decimal>(type: "decimal(20,2)", precision: 20, scale: 2, nullable: false),
                     TipoImovelId = table.Column<int>(type: "int", nullable: false),
                     FoiVendida = table.Column<bool>(type: "bit", nullable: false),
@@ -114,7 +114,7 @@ namespace VendaImoveis.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CNPJ = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: false),
+                    CNPJ = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false),
                     EnderecoId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),

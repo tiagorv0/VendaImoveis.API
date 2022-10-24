@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Utils;
 using VendaImoveis.Application.ViewModels.Corretor;
 using VendaImoveis.Domain.Entities;
 using VendaImoveis.Domain.Interfaces;
@@ -21,8 +22,13 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.CPF)
-                .MustAsync((cpf, cancelToken) => repository.ExistAsync(x => x.CPF.Equals(cpf)))
+                .Must(cpf => !repository.ExistAsync(x => x.CPF.Equals(cpf)).Result)
                 .WithMessage("{PropertyName} já existente");
+
+            RuleFor(x => x.CPF)
+                .Must(cpf => RegexValidate.CPFEhValido(cpf))
+                .WithMessage("{PropertyName} não é válido!");
+                
 
             RuleFor(x => x.ImobiliariaId)
                 .NotEqual(0)

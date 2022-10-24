@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using VendaImoveis.Application.Utils;
 using VendaImoveis.Application.ViewModels;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Interfaces;
@@ -20,13 +21,17 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.CRECI)
-                .MustAsync((creci, cancelToken) => repository.ExistAsync(x => x.CRECI.Equals(creci)))
+                .Must(creci => !repository.ExistAsync(x => x.CRECI.Equals(creci)).Result)
                 .WithMessage("{PropertyName} já existente");
 
             RuleFor(x => x.Telefone)
                 .MinimumLength(14)
                 .MaximumLength(15)
                 .NotEmpty();
+
+            RuleFor(x => x.Telefone)
+                .Must(telefone => RegexValidate.TelefoneEhValido(telefone))
+                .WithMessage("{PropertyName} não é válido!");
 
             RuleFor(x => x.Usuario)
                 .SetValidator(new UsuarioRequestValidator(usuarioRepository));

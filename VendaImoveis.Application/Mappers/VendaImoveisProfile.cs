@@ -28,8 +28,7 @@ namespace VendaImoveis.Application.Mappers
             CreateMap<RequestCorretor, Corretor>();
             CreateMap<Corretor, ResponseCorretor>();
 
-            CreateMap<RequestImobiliaria, Imobiliaria>()
-                .ForMember(x => x.UsuarioId , m => m.MapFrom(e => e.));
+            CreateMap<RequestImobiliaria, Imobiliaria>();
             CreateMap<Imobiliaria, ResponseImobiliaria>();
 
             CreateMap<RequestAnuncio, Anuncio>();

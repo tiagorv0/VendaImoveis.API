@@ -8,5 +8,6 @@ namespace VendaImoveis.Domain.Entities
         public int ImobiliariaId { get; set; }
         public virtual Imobiliaria Imobiliaria { get; set; }
         public virtual IEnumerable<Venda> Vendas { get; set; }
+
     }
 }
