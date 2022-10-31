@@ -1,19 +1,21 @@
 ﻿using FluentValidation;
+using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Utils;
-using VendaImoveis.Application.ViewModels;
+using VendaImoveis.Application.ViewModels.Common;
 using VendaImoveis.Domain.Core;
-using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Validations
 {
-    public class UsuarioImobiliariaRequestValidator<TRequest, TEntity> :
-        AbstractValidator<TRequest> where TRequest : RequestUsuariosImobiliaria
+    public class UsuarioImobiliariaRequestValidator<TRequest, TEntity> : UsuarioRequestValidator<TRequest, TEntity>
+        where TRequest : RequestUsuariosImobiliaria
         where TEntity : UsuariosImobiliaria
     {
         public UsuarioImobiliariaRequestValidator(
-            IBaseReadOnlyRepository<TEntity> repository, 
-            IUsuarioRepository usuarioRepository)
+            IBaseReadOnlyRepository<TEntity> repository,
+            IAuthService authService
+        ) : base(repository, authService)
         {
             RuleFor(x => x.Nome)
                 .MinimumLength(2)
@@ -21,8 +23,7 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.CRECI)
-                .Must(creci => !repository.ExistAsync(x => x.CRECI.Equals(creci)).Result)
-                .WithMessage("{PropertyName} já existente");
+                .ValidateCRECI(repository, authService);
 
             RuleFor(x => x.Telefone)
                 .MinimumLength(14)
@@ -30,11 +31,8 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.Telefone)
-                .Must(telefone => RegexValidate.TelefoneEhValido(telefone))
+                .Must(telefone => PropertyValidation.TelefoneEhValido(telefone))
                 .WithMessage("{PropertyName} não é válido!");
-
-            RuleFor(x => x.Usuario)
-                .SetValidator(new UsuarioRequestValidator(usuarioRepository));
         }
     }
 }

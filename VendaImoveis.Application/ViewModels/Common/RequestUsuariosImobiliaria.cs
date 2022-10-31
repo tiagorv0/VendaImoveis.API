@@ -1,12 +1,11 @@
 ﻿using VendaImoveis.Application.ViewModels.Usuario;
 
-namespace VendaImoveis.Application.ViewModels
+namespace VendaImoveis.Application.ViewModels.Common
 {
-    public class RequestUsuariosImobiliaria
+    public class RequestUsuariosImobiliaria : RequestUsuario
     {
         public string Nome { get; set; }
         public string CRECI { get; set; }
         public string Telefone { get; set; }
-        public RequestUsuario Usuario { get; set; }
     }
 }

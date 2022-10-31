@@ -7,19 +7,19 @@ namespace VendaImoveis.Infrastructure.Mappings
     {
         public override void Configure(EntityTypeBuilder<Venda> builder)
         {
-            //base.Configure(builder);
+            base.Configure(builder);
 
-            //builder.HasOne(x => x.Anuncio)
-            //       .WithMany()
-            //       .HasForeignKey(x => x.AnuncioId)
-            //       .IsRequired()
-            //       .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Anuncio)
+                   .WithMany()
+                   .HasForeignKey(x => x.AnuncioId)
+                   .IsRequired()
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 
-            //builder.HasOne(x => x.Corretor)
-            //       .WithMany()
-            //       .HasForeignKey(x => x.CorretorId)
-            //       .IsRequired()
-            //       .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Corretor)
+                   .WithMany(x => x.Vendas)
+                   .HasForeignKey(x => x.CorretorId)
+                   .IsRequired()
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
         }
     }
 }

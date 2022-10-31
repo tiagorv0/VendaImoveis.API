@@ -6,6 +6,7 @@ using VendaImoveis.Application.Params.Search;
 using VendaImoveis.Application.Services.Common;
 using VendaImoveis.Application.ViewModels.Corretor;
 using VendaImoveis.Domain.Entities;
+using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services
@@ -14,14 +15,12 @@ namespace VendaImoveis.Application.Services
         CrudService<Corretor, RequestCorretor, ResponseCorretor, CorretorParams, CorretorSearch>,
         ICorretorService
     {
-        public CorretorService(IBaseRepository<Corretor> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<RequestCorretor> validator) : base(repository, mapper, unitOfWork, validator)
+        public CorretorService(ICorretorRepository repository, 
+            IMapper mapper, 
+            IUnitOfWork unitOfWork, 
+            IValidator<RequestCorretor> validator
+        ) : base(repository, mapper, unitOfWork, validator)
         {
-        }
-
-        public override Task<ResponseCorretor> CreateAsync(RequestCorretor model)
-        {
-            model.Usuario.TipoUsuarioId = 2;
-            return base.CreateAsync(model);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using VendaImoveis.Application.ViewModels.Anuncio;
+using VendaImoveis.Application.ViewModels.Common;
 using VendaImoveis.Application.ViewModels.Corretor;
 using VendaImoveis.Application.ViewModels.Endereco;
 using VendaImoveis.Domain.Core;

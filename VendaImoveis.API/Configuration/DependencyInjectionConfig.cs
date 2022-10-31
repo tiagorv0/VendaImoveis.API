@@ -1,17 +1,13 @@
-﻿using VendaImoveis.Application.Common.Interfaces;
-using VendaImoveis.Application.Interfaces;
-using VendaImoveis.Application.Services;
+﻿using FluentValidation;
+using VendaImoveis.Application.Common.Interfaces;
+using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Mappers;
 using VendaImoveis.Application.Services.Common;
 using VendaImoveis.Application.Token;
+using VendaImoveis.Application.Validations;
 using VendaImoveis.Domain.Interfaces.Common;
 using VendaImoveis.Infrastructure.Repositories.Common;
 using VendaImoveis.Infrastructure.UnitOfWork;
-using FluentValidation.AspNetCore;
-using VendaImoveis.Application.Validations;
-using VendaImoveis.Application.Mappers;
-using LinqKit;
-using VendaImoveis.Application.Extensions;
-using FluentValidation;
 
 namespace VendaImoveis.API.Configuration
 {
@@ -36,7 +32,7 @@ namespace VendaImoveis.API.Configuration
             services.AddScoped<ITokenGenerator, TokenGenerator>();
 
             services.AddAutoMapper(typeof(VendaImoveisProfile));
-            services.AddValidatorsFromAssemblyContaining<UsuarioRequestValidator>();
+            services.AddValidatorsFromAssemblyContaining<PropriedadeRequestValidator>();
 
 
             return services;

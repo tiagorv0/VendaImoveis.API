@@ -10,11 +10,11 @@ namespace VendaImoveis.Infrastructure.Mappings
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.CreatedAt)
+            builder.Property(x => x.CriadoEm)
                 .HasDefaultValueSql("getdate()")
                 .IsRequired();
 
-            builder.Property(x => x.UpdatedAt);
+            builder.Property(x => x.AtualizadoEm);
         }
     }
 }

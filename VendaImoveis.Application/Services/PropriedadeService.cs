@@ -6,6 +6,7 @@ using VendaImoveis.Application.Params.Search;
 using VendaImoveis.Application.Services.Common;
 using VendaImoveis.Application.ViewModels.Propriedade;
 using VendaImoveis.Domain.Entities;
+using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services
@@ -14,7 +15,11 @@ namespace VendaImoveis.Application.Services
         CrudService<Propriedade, RequestPropriedade, ResponsePropriedade, PropriedadeParams, PropriedadeSearch>,
         IPropriedadeService
     {
-        public PropriedadeService(IBaseRepository<Propriedade> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<RequestPropriedade> validator) : base(repository, mapper, unitOfWork, validator)
+        public PropriedadeService(IPropriedadeRepository repository, 
+            IMapper mapper, 
+            IUnitOfWork unitOfWork, 
+            IValidator<RequestPropriedade> validator
+        ) : base(repository, mapper, unitOfWork, validator)
         {
         }
     }

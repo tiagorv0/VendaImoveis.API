@@ -1,4 +1,5 @@
-﻿using VendaImoveis.API.Controllers.Abstract;
+﻿using Microsoft.AspNetCore.Authorization;
+using VendaImoveis.API.Controllers.Abstract;
 using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Params.Params;
 using VendaImoveis.Application.Params.Search;
@@ -7,6 +8,7 @@ using VendaImoveis.Domain.Entities;
 
 namespace VendaImoveis.API.Controllers
 {
+    [Authorize]
     public class VendaController :
         CrudControllerBase<Venda, RequestVenda, ResponseVenda, VendaParams, VendaSearch>
     {

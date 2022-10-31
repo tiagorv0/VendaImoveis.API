@@ -1,32 +1,35 @@
 ﻿using FluentValidation;
+using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Utils;
 using VendaImoveis.Application.ViewModels.Usuario;
 using VendaImoveis.Domain.Core;
-using VendaImoveis.Domain.Entities.Enums;
-using VendaImoveis.Domain.Interfaces;
+using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Validations
 {
-    public class UsuarioRequestValidator : AbstractValidator<RequestUsuario>
+    public class UsuarioRequestValidator<TRequest, TEntity> : AbstractValidator<TRequest>
+        where TRequest : RequestUsuario
+        where TEntity : Usuario
     {
-        public UsuarioRequestValidator(IUsuarioRepository usuarioRepository)
+        public UsuarioRequestValidator(IBaseReadOnlyRepository<TEntity> repository,
+            IAuthService authService)
         {
+
             RuleFor(x => x.NomeUsuario)
                 .MinimumLength(5)
-                .MaximumLength(15)
+            .MaximumLength(15)
                 .NotEmpty();
 
             RuleFor(x => x.NomeUsuario)
-                .Must(username => !usuarioRepository.ExistAsync(x => x.NomeUsuario.Equals(username)).Result)
-                .WithMessage("{PropertyName} Já existe um usuário com usuário informado.");
+                .ValidateNomeUsuario(repository, authService);
 
             RuleFor(x => x.Email)
-                .EmailAddress()
+            .EmailAddress()
                 .NotEmpty();
 
             RuleFor(x => x.Email)
-                .Must(email => !usuarioRepository.ExistAsync(x => x.Email.Equals(email)).Result)
-                .WithMessage("{PropertyName} Já existe um usuário com e-mail informado.");
+                .ValidateEmail(repository, authService);
 
             RuleFor(x => x.Senha)
                 .MinimumLength(8)
@@ -34,12 +37,8 @@ namespace VendaImoveis.Application.Validations
                 .NotEmpty();
 
             RuleFor(x => x.Senha)
-                .Must(senha => RegexValidate.SenhaEhValido(senha))
+                .Must(senha => PropertyValidation.SenhaEhValido(senha))
                 .WithMessage("Senha deve conter o mínimo de oito caracteres, pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
-
-            RuleFor(x => x.TipoUsuarioId)
-                .Must(type => Enumeration.GetAll<UserRole>().Any(x => x.Id == type))
-                .WithMessage("Tipo do usuário inválido");
         }
     }
 }

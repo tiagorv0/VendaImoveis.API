@@ -3,7 +3,7 @@ using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Domain.Interfaces
 {
-    public interface IImobiliariaRepository : IBaseRepository<Imobiliaria>
+    public interface IImobiliariaRepository : IUsuariosImobiliariaRepository<Imobiliaria>
     {
     }
 }

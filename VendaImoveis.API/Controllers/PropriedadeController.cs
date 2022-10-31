@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VendaImoveis.API.Controllers.Abstract;
+using VendaImoveis.Application.Constants;
 using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Params.Params;
 using VendaImoveis.Application.Params.Search;
@@ -13,7 +14,7 @@ using VendaImoveis.Domain.Entities.Enums;
 
 namespace VendaImoveis.API.Controllers
 {
-    [Authorize]
+    
     public class PropriedadeController :
         CrudControllerBase<Propriedade, RequestPropriedade, ResponsePropriedade, PropriedadeParams, PropriedadeSearch>
     {
@@ -27,6 +28,24 @@ namespace VendaImoveis.API.Controllers
         public virtual IActionResult GetEnumeration()
         {
             return Ok(_mapper.Map<IEnumerable<PropertyTypeViewModel>>(Enumeration.GetAll<PropertyType>()));
+        }
+
+        [Authorize(Roles = Roles.Imobiliaria)]
+        public override Task<ResponsePropriedade> CreateAsync([FromBody] RequestPropriedade request)
+        {
+            return base.CreateAsync(request);
+        }
+
+        [Authorize(Roles = Roles.Imobiliaria)]
+        public override Task<ResponsePropriedade> UpdateAsync([FromRoute] int id, [FromBody] RequestPropriedade request)
+        {
+            return base.UpdateAsync(id, request);
+        }
+
+        [Authorize(Roles = Roles.Imobiliaria)]
+        public override Task DeleteAsync([FromRoute] int id)
+        {
+            return base.DeleteAsync(id);
         }
     }
 }

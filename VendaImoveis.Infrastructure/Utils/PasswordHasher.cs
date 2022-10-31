@@ -1,5 +1,5 @@
-﻿using VendaImoveis.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using VendaImoveis.Domain.Core;
 
 namespace VendaImoveis.Infrastructure.Utils
 {

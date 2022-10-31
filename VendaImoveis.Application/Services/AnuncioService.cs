@@ -6,6 +6,7 @@ using VendaImoveis.Application.Params.Search;
 using VendaImoveis.Application.Services.Common;
 using VendaImoveis.Application.ViewModels.Anuncio;
 using VendaImoveis.Domain.Entities;
+using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services
@@ -14,7 +15,11 @@ namespace VendaImoveis.Application.Services
         CrudService<Anuncio, RequestAnuncio, ResponseAnuncio, AnuncioParams, AnuncioSearch>,
         IAnuncioService
     {
-        public AnuncioService(IBaseRepository<Anuncio> repository, IMapper mapper, IUnitOfWork unitOfWork, IValidator<RequestAnuncio> validator) : base(repository, mapper, unitOfWork, validator)
+        public AnuncioService(IAnuncioRepository repository, 
+            IMapper mapper, 
+            IUnitOfWork unitOfWork, 
+            IValidator<RequestAnuncio> validator
+        ) : base(repository, mapper, unitOfWork, validator)
         {
         }
     }

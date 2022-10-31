@@ -1,7 +1,4 @@
 ﻿using AspNetCore.IQueryable.Extensions;
-using AspNetCore.IQueryable.Extensions.Filter;
-using AspNetCore.IQueryable.Extensions.Pagination;
-using AspNetCore.IQueryable.Extensions.Sort;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using VendaImoveis.Domain.Core;

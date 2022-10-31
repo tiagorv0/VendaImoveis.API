@@ -1,6 +1,6 @@
 ﻿using LinqKit;
 using System.Linq.Expressions;
-using VendaImoveis.Domain.Entities;
+using VendaImoveis.Domain.Core;
 
 namespace VendaImoveis.Application.Params.Params
 {

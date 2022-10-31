@@ -3,6 +3,7 @@ using System.Security.Claims;
 using VendaImoveis.Application.Exceptions;
 using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.ViewModels.Login;
+using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Interfaces;
 using VendaImoveis.Infrastructure.Utils;
 
@@ -10,13 +11,17 @@ namespace VendaImoveis.Application.Services
 {
     public class LoginService : ILoginService
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ICorretorRepository _corretorRepository;
+        private readonly IImobiliariaRepository _imobiliariaRepository;
         private readonly IValidator<LoginViewModel> _validator;
 
-        public LoginService(IUsuarioRepository usuarioRepository, IValidator<LoginViewModel> validator)
+        public LoginService(ICorretorRepository corretorRepository,
+            IValidator<LoginViewModel> validator,
+            IImobiliariaRepository imobiliariaRepository)
         {
-            _usuarioRepository = usuarioRepository;
+            _corretorRepository = corretorRepository;
             _validator = validator;
+            _imobiliariaRepository = imobiliariaRepository;
         }
 
         public async Task<IEnumerable<Claim>> Login(LoginViewModel model)
@@ -25,7 +30,7 @@ namespace VendaImoveis.Application.Services
             if (!validation.IsValid)
                 throw new BadRequestException(validation);
 
-            var user = await _usuarioRepository.GetFirstAsync(x => x.NomeUsuario == model.NomeUsuario);
+            var user = await GetUser(model);
 
             if (user == null)
                 throw new BadRequestException(nameof(model.NomeUsuario), "Usuário ou Senha inválidos");
@@ -40,6 +45,17 @@ namespace VendaImoveis.Application.Services
                 new Claim(ClaimTypes.Name, user.NomeUsuario),
                 new Claim(ClaimTypes.Role, user.TipoUsuario.Name),
             };
+        }
+
+        private async Task<Usuario?> GetUser(LoginViewModel model)
+        {
+            if (model.Cargo.Equals(Cargo.Imobiliaria))
+                return await _imobiliariaRepository.GetFirstAsync(x => x.NomeUsuario == model.NomeUsuario);
+
+            if (model.Cargo.Equals(Cargo.Corretor))
+                return await _corretorRepository.GetFirstAsync(x => x.NomeUsuario == model.NomeUsuario);
+
+            throw new BadRequestException(nameof(model.Cargo), "Cargo inválido!");
         }
     }
 }

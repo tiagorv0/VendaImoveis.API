@@ -1,4 +1,5 @@
-﻿using VendaImoveis.Application.ViewModels.Imobiliaria;
+﻿using VendaImoveis.Application.ViewModels.Common;
+using VendaImoveis.Application.ViewModels.Imobiliaria;
 using VendaImoveis.Application.ViewModels.Venda;
 
 namespace VendaImoveis.Application.ViewModels.Corretor

@@ -1,4 +1,5 @@
-﻿using VendaImoveis.Application.ViewModels.Endereco;
+﻿using VendaImoveis.Application.ViewModels.Common;
+using VendaImoveis.Application.ViewModels.Endereco;
 
 namespace VendaImoveis.Application.ViewModels.Imobiliaria
 {

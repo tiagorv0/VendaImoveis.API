@@ -12,7 +12,7 @@ using VendaImoveis.Infrastructure.Context;
 namespace VendaImoveis.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20221020190122_Initial")]
+    [Migration("20221031155022_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,10 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
@@ -50,9 +53,6 @@ namespace VendaImoveis.Infrastructure.Migrations
 
                     b.Property<int>("PropriedadeId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -71,6 +71,9 @@ namespace VendaImoveis.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CPF")
                         .IsRequired()
                         .HasMaxLength(14)
@@ -80,10 +83,14 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ImobiliariaId")
                         .HasColumnType("int");
@@ -93,16 +100,23 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                    b.Property<int>("TipoUsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(2);
 
                     b.HasKey("Id");
 
@@ -112,9 +126,15 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.HasIndex("CRECI")
                         .IsUnique();
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("ImobiliariaId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("NomeUsuario")
+                        .IsUnique();
+
+                    b.HasIndex("TipoUsuarioId");
 
                     b.ToTable("Corretores");
                 });
@@ -185,11 +205,6 @@ namespace VendaImoveis.Infrastructure.Migrations
                         {
                             Id = 3,
                             Name = "Industrial"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Client"
                         });
                 });
 
@@ -210,21 +225,16 @@ namespace VendaImoveis.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Admin"
+                            Name = "Imobiliaria"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Empresa"
-                        },
-                        new
-                        {
-                            Id = 3,
                             Name = "Corretor"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 3,
                             Name = "Comum"
                         });
                 });
@@ -237,6 +247,9 @@ namespace VendaImoveis.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CNPJ")
                         .IsRequired()
                         .HasMaxLength(18)
@@ -246,10 +259,14 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("EnderecoId")
                         .HasColumnType("int");
@@ -259,16 +276,23 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
+                    b.Property<int>("TipoUsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.HasKey("Id");
 
@@ -278,9 +302,15 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.HasIndex("CRECI")
                         .IsUnique();
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("EnderecoId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("NomeUsuario")
+                        .IsUnique();
+
+                    b.HasIndex("TipoUsuarioId");
 
                     b.ToTable("Imobiliarias");
                 });
@@ -301,7 +331,10 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .HasPrecision(20, 2)
                         .HasColumnType("decimal(20,2)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CriadoEm")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
@@ -322,9 +355,6 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.Property<int>("TipoImovelId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("Valor")
                         .HasPrecision(20, 2)
                         .HasColumnType("decimal(20,2)");
@@ -338,42 +368,6 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.ToTable("Propriedades");
                 });
 
-            modelBuilder.Entity("VendaImoveis.Domain.Entities.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomeUsuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TipoUsuarioId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TipoUsuarioId");
-
-                    b.ToTable("Usuarios");
-                });
-
             modelBuilder.Entity("VendaImoveis.Domain.Entities.Venda", b =>
                 {
                     b.Property<int>("Id")
@@ -385,14 +379,16 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.Property<int>("AnuncioId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("AtualizadoEm")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CorretorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("CriadoEm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -430,15 +426,15 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VendaImoveis.Domain.Entities.Usuario", "Usuario")
+                    b.HasOne("VendaImoveis.Domain.Entities.Enums.UserRole", "TipoUsuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("TipoUsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Imobiliaria");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("TipoUsuario");
                 });
 
             modelBuilder.Entity("VendaImoveis.Domain.Entities.Imobiliaria", b =>
@@ -449,15 +445,15 @@ namespace VendaImoveis.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VendaImoveis.Domain.Entities.Usuario", "Usuario")
+                    b.HasOne("VendaImoveis.Domain.Entities.Enums.UserRole", "TipoUsuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("TipoUsuarioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Endereco");
 
-                    b.Navigation("Usuario");
+                    b.Navigation("TipoUsuario");
                 });
 
             modelBuilder.Entity("VendaImoveis.Domain.Entities.Propriedade", b =>
@@ -479,23 +475,12 @@ namespace VendaImoveis.Infrastructure.Migrations
                     b.Navigation("TipoImovel");
                 });
 
-            modelBuilder.Entity("VendaImoveis.Domain.Entities.Usuario", b =>
-                {
-                    b.HasOne("VendaImoveis.Domain.Entities.Enums.UserRole", "TipoUsuario")
-                        .WithMany()
-                        .HasForeignKey("TipoUsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TipoUsuario");
-                });
-
             modelBuilder.Entity("VendaImoveis.Domain.Entities.Venda", b =>
                 {
                     b.HasOne("VendaImoveis.Domain.Entities.Anuncio", "Anuncio")
                         .WithMany()
                         .HasForeignKey("AnuncioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("VendaImoveis.Domain.Entities.Corretor", "Corretor")

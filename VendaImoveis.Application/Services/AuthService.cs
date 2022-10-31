@@ -13,36 +13,19 @@ namespace VendaImoveis.Application.Services
             _accessor = accessor;
         }
 
-        public int? Id => GetClaimIdentity<int>("Id");
+        public int Id => int.Parse(GetClaims().FirstOrDefault(x => x.Type == ClaimTypes.Sid).Value);
+        public string Name => GetClaims().FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+        public string Email => GetClaims().FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+        public string Role => GetClaims().FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-        public string Name => GetClaimIdentity<string>("Name");
-
-        public string Role => GetClaimIdentity<string>("Role");
-
-        public string Email => GetClaimIdentity<string>("email");
-
-        public string Token => GetCustomHeader("Authorization");
-
-        public bool IsAuthenticated => _accessor.HttpContext?.User?.Identity?.IsAuthenticated ?? false;
-
-        public IEnumerable<Claim> GetClaimsIdentity() => _accessor.HttpContext.User.Claims.ToList();
-
-        private T GetClaimIdentity<T>(string type)
+        public IEnumerable<Claim> GetClaims()
         {
-            if (!IsAuthenticated) return default;
-
-            var claim = _accessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == type);
-            if (claim is null) return default;
-
-            return (T)Convert.ChangeType(claim.Value, typeof(T));
+            return _accessor.HttpContext.User.Claims;
         }
 
-        private string GetCustomHeader(string header)
+        public bool IsAuthenticated()
         {
-            var headers = _accessor.HttpContext.Request.Headers;
-            if (!headers.ContainsKey(header)) return null;
-
-            return headers[header].ToString();
+            return _accessor.HttpContext.User.Identity.IsAuthenticated;
         }
     }
 }

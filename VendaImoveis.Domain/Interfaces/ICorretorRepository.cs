@@ -3,7 +3,7 @@ using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Domain.Interfaces
 {
-    public interface ICorretorRepository : IBaseRepository<Corretor>
+    public interface ICorretorRepository : IUsuariosImobiliariaRepository<Corretor>
     {
     }
 }

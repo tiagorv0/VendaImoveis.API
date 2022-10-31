@@ -18,7 +18,7 @@ namespace VendaImoveis.Infrastructure.Repositories.Common
         }
         public virtual async Task<TEntity> UpdateAsync(TEntity model)
         {
-            model.UpdatedAt = DateTime.Now;
+            model.AtualizadoEm = DateTime.Now;
             _dbSet.Update(model);
 
             return model;

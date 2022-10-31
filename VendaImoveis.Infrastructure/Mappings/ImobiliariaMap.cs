@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VendaImoveis.Domain.Entities;
 
 namespace VendaImoveis.Infrastructure.Mappings
@@ -16,13 +17,15 @@ namespace VendaImoveis.Infrastructure.Mappings
                    .WithMany()
                    .HasForeignKey(x => x.EnderecoId)
                    .IsRequired()
-                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(x => x.Corretores)
                    .WithOne(x => x.Imobiliaria)
                    .HasForeignKey(x => x.ImobiliariaId)
                    .IsRequired()
-                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(x => x.TipoUsuarioId).HasDefaultValue(1);
         }
     }
 }

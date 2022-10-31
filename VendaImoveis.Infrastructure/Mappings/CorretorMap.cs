@@ -13,11 +13,7 @@ namespace VendaImoveis.Infrastructure.Mappings
             builder.HasIndex(x => x.CPF).IsUnique();
             builder.Property(x => x.CPF).HasMaxLength(14);
 
-            builder.HasOne(x => x.Imobiliaria)
-                   .WithMany()
-                   .HasForeignKey(p => p.ImobiliariaId)
-                   .IsRequired()
-                   .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(x => x.TipoUsuarioId).HasDefaultValue(2);
         }
     }
 }

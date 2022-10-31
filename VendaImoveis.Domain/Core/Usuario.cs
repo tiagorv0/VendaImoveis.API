@@ -1,9 +1,8 @@
-﻿using VendaImoveis.Domain.Core;
-using VendaImoveis.Domain.Entities.Enums;
+﻿using VendaImoveis.Domain.Entities.Enums;
 
-namespace VendaImoveis.Domain.Entities
+namespace VendaImoveis.Domain.Core
 {
-    public class Usuario : Registro
+    public abstract class Usuario : Registro
     {
         public string NomeUsuario { get; set; }
         public string Email { get; set; }

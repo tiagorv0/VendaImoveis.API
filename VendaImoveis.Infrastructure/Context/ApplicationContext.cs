@@ -13,7 +13,6 @@ namespace VendaImoveis.Infrastructure.Context
 
         }
 
-        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Imobiliaria> Imobiliarias { get; set; }
         public virtual DbSet<Corretor> Corretores { get; set; }
         public virtual DbSet<Anuncio> Anuncios { get; set; }
