@@ -11,7 +11,7 @@ using VendaImoveis.Domain.Entities;
 namespace VendaImoveis.API.Controllers
 {
     public class ImobiliariaController :
-        CrudControllerBase<Imobiliaria, RequestImobiliaria, ResponseImobiliaria, ImobiliariaParams, ImobiliariaSearch>
+        UsuariosImobiliariaControllerBase<Imobiliaria, RequestImobiliaria, ResponseImobiliaria, ImobiliariaParams, ImobiliariaSearch>
     {
         public ImobiliariaController(
             IImobiliariaService service
@@ -20,13 +20,13 @@ namespace VendaImoveis.API.Controllers
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task<ResponseImobiliaria> UpdateAsync([FromRoute] int id, [FromBody] RequestImobiliaria request)
+        public override Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] RequestImobiliaria request)
         {
             return base.UpdateAsync(id, request);
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task DeleteAsync([FromRoute] int id)
+        public override Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             return base.DeleteAsync(id);
         }

@@ -11,4 +11,6 @@ namespace VendaImoveis.Application.Interfaces
         ICrudService<Venda, RequestVenda, ResponseVenda, VendaParams, VendaSearch>
     {
     }
+
+    
 }

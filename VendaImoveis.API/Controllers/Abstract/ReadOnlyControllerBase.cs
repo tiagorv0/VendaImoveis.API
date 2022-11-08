@@ -2,6 +2,8 @@
 using VendaImoveis.Application.Common.Interfaces;
 using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Core;
+using VendaImoveis.API.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace VendaImoveis.API.Controllers.Abstract
 {
@@ -23,21 +25,32 @@ namespace VendaImoveis.API.Controllers.Abstract
         }
 
         [HttpGet]
-        public virtual async Task<IEnumerable<TResponse>> GetAllAsync([FromQuery] TParams @params)
+        public virtual async Task<IActionResult> GetAllAsync([FromQuery] TParams @params)
         {
-            return await _service.GetAllAsync(@params);
+            var obj = GetResult(
+                await _service.GetAllAsync(@params),
+                await _service.CountAsync(@params)
+                ); 
+            return Ok(obj);
         }
 
         [HttpGet("search")]
-        public virtual async Task<IEnumerable<TResponse>> SearchAsync([FromQuery] TSearch @search)
+        public virtual async Task<IActionResult> SearchAsync([FromQuery] TSearch @search)
         {
-            return await _service.SearchAsync(@search);
+            var obj = GetResult(
+                await _service.SearchAsync(@search),
+                await _service.CountAsync(@search)
+                );
+            return Ok(obj);
         }
 
         [HttpGet("{id}")]
-        public virtual async Task<TResponse> GetByIdAsync([FromRoute] int id)
+        public virtual async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
-            return await _service.GetByIdAsync(id);
+            var obj = await _service.GetByIdAsync(id);
+            return Ok(obj);
         }
+
+        private Result<T> GetResult<T>(T data, int? total = null) => new Result<T>(data, total);
     }
 }

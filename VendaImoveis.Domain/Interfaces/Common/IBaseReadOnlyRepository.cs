@@ -10,6 +10,7 @@ namespace VendaImoveis.Domain.Interfaces.Common
         Task<IEnumerable<TEntity>> GetAllAsync(IParams @params);
         Task<TEntity> GetByIdAsync(int id);
         Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<int> CountAsync(IFiltrable<TEntity> filter = null);
         Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
         Task<IEnumerable<TEntity>> SearchAsync(ISearch search);
         Task<bool> ExistAsync(int id);

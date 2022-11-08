@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VendaImoveis.API.Controllers.Abstract;
 using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Params.Params;

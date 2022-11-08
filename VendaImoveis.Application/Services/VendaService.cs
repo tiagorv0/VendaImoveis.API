@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using VendaImoveis.Application.Exceptions;
 using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Application.Params.Params;
 using VendaImoveis.Application.Params.Search;
@@ -11,16 +12,34 @@ using VendaImoveis.Domain.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services
 {
-    public class VendaService : 
+    public class VendaService :
         CrudService<Venda, RequestVenda, ResponseVenda, VendaParams, VendaSearch>,
         IVendaService
     {
-        public VendaService(IVendaRepository repository, 
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
-            IValidator<RequestVenda> validator
-        ) : base(repository, mapper, unitOfWork, validator)
+        private readonly IAnuncioRepository _anuncioRepository;
+        public VendaService(IVendaRepository repository,
+                            IMapper mapper,
+                            IUnitOfWork unitOfWork,
+                            IValidator<RequestVenda> validator,
+                            IAuthService authService,
+                            IAnuncioRepository anuncioRepository) : base(repository, mapper, unitOfWork, validator, authService)
         {
+            _anuncioRepository = anuncioRepository;
+        }
+
+        public async override Task<ResponseVenda> CreateAsync(RequestVenda model)
+        {
+            var exist = await _anuncioRepository.GetByIdAsync(model.AnuncioId);
+            if (exist is null)
+                throw new NotFoundException();
+
+            exist.Ativo = false;
+            exist.Propriedade.FoiVendida = true;
+
+            var created = await _repository.CreateAsync(_mapper.Map<Venda>(model));
+            await _unitOfWork.CommitAsync();
+
+            return _mapper.Map<ResponseVenda>(created);
         }
     }
 }

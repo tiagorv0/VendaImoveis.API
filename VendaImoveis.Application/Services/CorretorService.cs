@@ -12,15 +12,17 @@ using VendaImoveis.Domain.Interfaces.Common;
 namespace VendaImoveis.Application.Services
 {
     public class CorretorService :
-        CrudService<Corretor, RequestCorretor, ResponseCorretor, CorretorParams, CorretorSearch>,
+        UsuariosImobiliariaService<Corretor, RequestCorretor, ResponseCorretor, CorretorParams, CorretorSearch>,
         ICorretorService
     {
         public CorretorService(ICorretorRepository repository, 
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
-            IValidator<RequestCorretor> validator
-        ) : base(repository, mapper, unitOfWork, validator)
+                                IMapper mapper, IUnitOfWork unitOfWork, 
+                                IValidator<RequestCorretor> validator, 
+                                IAuthService authService
+        ) : base(repository, mapper, unitOfWork, validator, authService)
         {
         }
+
+        
     }
 }

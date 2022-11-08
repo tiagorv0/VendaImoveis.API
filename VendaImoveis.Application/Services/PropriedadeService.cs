@@ -15,11 +15,12 @@ namespace VendaImoveis.Application.Services
         CrudService<Propriedade, RequestPropriedade, ResponsePropriedade, PropriedadeParams, PropriedadeSearch>,
         IPropriedadeService
     {
-        public PropriedadeService(IPropriedadeRepository repository, 
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
-            IValidator<RequestPropriedade> validator
-        ) : base(repository, mapper, unitOfWork, validator)
+        public PropriedadeService(IPropriedadeRepository repository,
+                                    IMapper mapper,
+                                    IUnitOfWork unitOfWork,
+                                    IValidator<RequestPropriedade> validator,
+                                    IAuthService authService
+        ) : base(repository, mapper, unitOfWork, validator, authService)
         {
         }
     }

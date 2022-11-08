@@ -24,6 +24,7 @@ namespace VendaImoveis.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = Roles.Imobiliaria)]
         [HttpGet("tipos-de-propriedade")]
         public virtual IActionResult GetEnumeration()
         {
@@ -31,19 +32,19 @@ namespace VendaImoveis.API.Controllers
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task<ResponsePropriedade> CreateAsync([FromBody] RequestPropriedade request)
+        public override Task<IActionResult> CreateAsync([FromBody] RequestPropriedade request)
         {
             return base.CreateAsync(request);
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task<ResponsePropriedade> UpdateAsync([FromRoute] int id, [FromBody] RequestPropriedade request)
+        public override Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] RequestPropriedade request)
         {
             return base.UpdateAsync(id, request);
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task DeleteAsync([FromRoute] int id)
+        public override Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             return base.DeleteAsync(id);
         }

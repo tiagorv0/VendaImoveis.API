@@ -12,15 +12,17 @@ using VendaImoveis.Domain.Interfaces.Common;
 namespace VendaImoveis.Application.Services
 {
     public class ImobiliariaService :
-        CrudService<Imobiliaria, RequestImobiliaria, ResponseImobiliaria, ImobiliariaParams, ImobiliariaSearch>,
+        UsuariosImobiliariaService<Imobiliaria, RequestImobiliaria, ResponseImobiliaria, ImobiliariaParams, ImobiliariaSearch>,
         IImobiliariaService
     {
-        public ImobiliariaService(IImobiliariaRepository repository, 
-            IMapper mapper, 
-            IUnitOfWork unitOfWork, 
-            IValidator<RequestImobiliaria> validator
-        ) : base(repository, mapper, unitOfWork, validator)
+        public ImobiliariaService(IImobiliariaRepository repository,
+                                    IMapper mapper,
+                                    IUnitOfWork unitOfWork,
+                                    IValidator<RequestImobiliaria> validator,
+                                    IAuthService authService
+        ) : base(repository, mapper, unitOfWork, validator, authService)
         {
         }
     }
 }
+

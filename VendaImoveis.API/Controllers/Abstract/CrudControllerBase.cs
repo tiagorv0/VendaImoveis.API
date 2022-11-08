@@ -24,21 +24,24 @@ namespace VendaImoveis.API.Controllers.Abstract
         }
 
         [HttpPost]
-        public virtual async Task<TResponse> CreateAsync([FromBody] TRequest request)
+        public virtual async Task<IActionResult> CreateAsync([FromBody] TRequest request)
         {
-            return await _service.CreateAsync(request);
+            var obj = await _service.CreateAsync(request);
+            return Ok(obj);
         }
 
         [HttpPut("{id}")]
-        public virtual async Task<TResponse> UpdateAsync([FromRoute] int id, [FromBody] TRequest request)
+        public virtual async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] TRequest request)
         {
-            return await _service.UpdateAsync(id, request);
+            var obj = await _service.UpdateAsync(id, request);
+            return Ok(obj);
         }
 
         [HttpDelete("{id}")]
-        public virtual async Task DeleteAsync([FromRoute] int id)
+        public virtual async Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             await _service.RemoveAsync(id);
+            return Ok();
         }
     }
 }

@@ -8,7 +8,7 @@ using VendaImoveis.Infrastructure.Utils;
 namespace VendaImoveis.Infrastructure.Repositories.Common
 {
     public class UsuariosImobiliariaRepository<TEntity> : BaseRepository<TEntity>, IUsuariosImobiliariaRepository<TEntity>
-        where TEntity : Usuario
+        where TEntity : UsuariosImobiliaria
     {
         public UsuariosImobiliariaRepository(ApplicationContext context) : base(context)
         {

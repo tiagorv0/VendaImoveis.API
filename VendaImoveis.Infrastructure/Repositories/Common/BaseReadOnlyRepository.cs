@@ -40,6 +40,11 @@ namespace VendaImoveis.Infrastructure.Repositories.Common
             return await GetQueryable(filter).FirstOrDefaultAsync();
         }
 
+        public virtual async Task<int> CountAsync(IFiltrable<TEntity> filter = null)
+        {
+            return await CountAsync(filter?.Filter());
+        }
+
         public virtual async Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             return await GetQueryable(filter).CountAsync();

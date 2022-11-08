@@ -11,20 +11,20 @@ using VendaImoveis.Domain.Entities;
 namespace VendaImoveis.API.Controllers
 {
     public class CorretorController :
-        CrudControllerBase<Corretor, RequestCorretor, ResponseCorretor, CorretorParams, CorretorSearch>
+        UsuariosImobiliariaControllerBase<Corretor, RequestCorretor, ResponseCorretor, CorretorParams, CorretorSearch>
     {
         public CorretorController(ICorretorService service) : base(service)
         {
         }
 
         [Authorize(Roles = Roles.Corretor)]
-        public override Task<ResponseCorretor> UpdateAsync([FromRoute] int id, [FromBody] RequestCorretor request)
+        public override Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] RequestCorretor request)
         {
             return base.UpdateAsync(id, request);
         }
 
         [Authorize(Roles = Roles.Corretor)]
-        public override Task DeleteAsync([FromRoute] int id)
+        public override Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             return base.DeleteAsync(id);
         }

@@ -11,8 +11,9 @@ namespace VendaImoveis.Application.Common.Interfaces
         where TSearch : ISearch
     {
         Task<int> CountAsync(TParams @params);
+        Task<int> CountAsync(TSearch @search);
         Task<TResponse> GetByIdAsync(int id);
         Task<IEnumerable<TResponse>> GetAllAsync(TParams @params);
-        Task<IEnumerable<TResponse>> SearchAsync(ISearch search);
+        Task<IEnumerable<TResponse>> SearchAsync(TSearch search);
     }
 }

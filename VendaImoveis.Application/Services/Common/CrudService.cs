@@ -2,6 +2,7 @@
 using FluentValidation;
 using VendaImoveis.Application.Common.Interfaces;
 using VendaImoveis.Application.Exceptions;
+using VendaImoveis.Application.Interfaces;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Interfaces.Common;
@@ -24,8 +25,9 @@ namespace VendaImoveis.Application.Services.Common
         public CrudService(IBaseRepository<TEntity> repository, 
                            IMapper mapper, 
                            IUnitOfWork unitOfWork, 
-                           IValidator<TRequest> validator)
-           : base(repository, mapper)
+                           IValidator<TRequest> validator,
+                           IAuthService authService)
+           : base(repository, mapper, authService)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;

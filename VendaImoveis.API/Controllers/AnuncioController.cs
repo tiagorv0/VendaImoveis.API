@@ -18,19 +18,19 @@ namespace VendaImoveis.API.Controllers
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task<ResponseAnuncio> CreateAsync([FromBody] RequestAnuncio request)
+        public override Task<IActionResult> CreateAsync([FromBody] RequestAnuncio request)
         {
             return base.CreateAsync(request);
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task<ResponseAnuncio> UpdateAsync([FromRoute] int id, [FromBody] RequestAnuncio request)
+        public override Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] RequestAnuncio request)
         {
             return base.UpdateAsync(id, request);
         }
 
         [Authorize(Roles = Roles.Imobiliaria)]
-        public override Task DeleteAsync([FromRoute] int id)
+        public override Task<IActionResult> DeleteAsync([FromRoute] int id)
         {
             return base.DeleteAsync(id);
         }
