@@ -1,8 +1,7 @@
-﻿using VendaImoveis.Application.Common.Interfaces;
-using VendaImoveis.Domain.Core.Params;
+﻿using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Core;
 
-namespace VendaImoveis.Application.Services.Common.Interfaces
+namespace VendaImoveis.Application.Interfaces.Common
 {
     public interface IUsuariosImobiliariaService<TEntity, TRequest, TResponse, TParams, TSearch> :
         ICrudService<TEntity, TRequest, TResponse, TParams, TSearch>

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Core;
-using VendaImoveis.Application.Common.Interfaces;
+using VendaImoveis.Application.Interfaces.Common;
 
 namespace VendaImoveis.API.Controllers.Abstract
 {
-    
+
     public abstract class CrudControllerBase<TEntity, TRequest, TResponse, TParams, TSearch> : 
         ReadOnlyControllerBase<TEntity, TRequest, TResponse, TParams, TSearch>
         where TEntity : Registro

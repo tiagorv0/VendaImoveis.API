@@ -10,7 +10,7 @@ builder.Services.AddControllers(opts =>
     opts.Filters.Add<ApplicationExceptionFilter>();
 });
 
-builder.Services.ResolveDependencies();
+builder.Services.ResolveDependencies(builder.Configuration);
 builder.Services.AddIdentityAndJwtConfiguration(builder.Configuration);
 builder.Services.AddSwagger();
 

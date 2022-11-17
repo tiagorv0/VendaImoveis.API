@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using VendaImoveis.Application.Services.Common.Interfaces;
+using VendaImoveis.Application.Interfaces.Common;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 

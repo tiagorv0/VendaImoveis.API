@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using VendaImoveis.API.Controllers.Abstract;
 using VendaImoveis.Application.Constants;
 using VendaImoveis.Application.Interfaces;
+using VendaImoveis.Application.Interfaces.Storage;
 using VendaImoveis.Application.Params.Params;
 using VendaImoveis.Application.Params.Search;
 using VendaImoveis.Application.ViewModels.Enums;
@@ -14,12 +15,15 @@ using VendaImoveis.Domain.Entities.Enums;
 
 namespace VendaImoveis.API.Controllers
 {
-    
+
     public class PropriedadeController :
         CrudControllerBase<Propriedade, RequestPropriedade, ResponsePropriedade, PropriedadeParams, PropriedadeSearch>
     {
         private readonly IMapper _mapper;
-        public PropriedadeController(IPropriedadeService service, IMapper mapper) : base(service)
+
+        public PropriedadeController(IPropriedadeService service, 
+                                    IMapper mapper
+        ) : base(service)
         {
             _mapper = mapper;
         }
@@ -48,5 +52,42 @@ namespace VendaImoveis.API.Controllers
         {
             return base.DeleteAsync(id);
         }
+
+        //[HttpPut("img/{id}")]
+        //[Authorize(Roles = Roles.Imobiliaria)]
+        //public async Task<IActionResult> UploadImagesAsync([FromRoute] int id, IList<IFormFile> images)
+        //{
+        //    var result = await _propriedadeFileStorageService.UploadManyImgAsync(id, images);
+        //    return Ok(result);
+        //}
+
+        //[HttpDelete("img/{id}")]
+        //[Authorize(Roles = Roles.Imobiliaria)]
+        //public async Task<IActionResult> RemoveAllImagesAsync([FromRoute] int id)
+        //{
+        //    var result = await _propriedadeFileStorageService.RemoveImgAsync(id);
+        //    return Ok(result);
+        //}
+
+        //[Authorize(Roles = Roles.Imobiliaria)]
+        //[HttpDelete("img/{id}")]
+        //public async Task<IActionResult> RemoveImageAsync([FromRoute] int id, [FromBody] int index)
+        //{
+        //    var result = await _propriedadeFileStorageService.RemoveOnlyOneImgAsync(id, index);
+        //    return Ok(result);
+        //}
+
+        //public IActionResult GetSingleImage([FromRoute] int id, [FromBody] int index)
+        //{
+        //    var result = _propriedadeFileStorageService.GetImg(id);
+        //    return Ok(result);
+        //}
+
+        //[HttpGet("img/{id}")]
+        //public IActionResult GetAllImages([FromRoute] int id)
+        //{
+        //    var result = _propriedadeFileStorageService.GetAllImg(id);
+        //    return Ok(result);
+        //}
     }
 }

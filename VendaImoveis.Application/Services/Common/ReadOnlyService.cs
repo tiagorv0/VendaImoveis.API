@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using VendaImoveis.Application.Common.Interfaces;
 using VendaImoveis.Application.Exceptions;
 using VendaImoveis.Application.Interfaces;
+using VendaImoveis.Application.Interfaces.Common;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Interfaces.Common;

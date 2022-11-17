@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendaImoveis.Application.Common.Interfaces;
-using VendaImoveis.Domain.Core.Params;
-using VendaImoveis.Domain.Core;
 using VendaImoveis.API.Response;
-using Microsoft.AspNetCore.Authorization;
+using VendaImoveis.Application.Interfaces.Common;
+using VendaImoveis.Domain.Core;
+using VendaImoveis.Domain.Core.Params;
 
 namespace VendaImoveis.API.Controllers.Abstract
 {
@@ -30,7 +29,7 @@ namespace VendaImoveis.API.Controllers.Abstract
             var obj = GetResult(
                 await _service.GetAllAsync(@params),
                 await _service.CountAsync(@params)
-                ); 
+                );
             return Ok(obj);
         }
 

@@ -12,8 +12,9 @@ namespace VendaImoveis.Domain.Entities
         public decimal? AreaConstruida { get; set; }
         public int? QuantidadeGaragem { get; set; }
         public decimal Valor { get; set; }
+        public bool FoiVendida { get; set; }
+        //public IEnumerable<string> Imagens { get; set; }
         public int TipoImovelId { get; set; }
         public virtual PropertyType TipoImovel { get; set; }
-        public bool FoiVendida { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Core.Params;
 
-namespace VendaImoveis.Application.Common.Interfaces
+namespace VendaImoveis.Application.Interfaces.Common
 {
     public interface IReadOnlyService<TEntity, TRequest, TResponse, TParams, TSearch>
         where TEntity : Registro

@@ -23,6 +23,8 @@ namespace VendaImoveis.Application.Services
         ) : base(repository, mapper, unitOfWork, validator, authService)
         {
         }
+
+
     }
 }
 

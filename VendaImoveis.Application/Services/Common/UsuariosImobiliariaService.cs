@@ -1,10 +1,10 @@
-﻿using VendaImoveis.Application.Services.Common.Interfaces;
-using VendaImoveis.Domain.Core.Params;
+﻿using VendaImoveis.Domain.Core.Params;
 using VendaImoveis.Domain.Core;
 using VendaImoveis.Domain.Interfaces.Common;
 using AutoMapper;
 using FluentValidation;
 using VendaImoveis.Application.Interfaces;
+using VendaImoveis.Application.Interfaces.Common;
 
 namespace VendaImoveis.Application.Services.Common
 {

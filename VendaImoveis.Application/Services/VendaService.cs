@@ -17,6 +17,7 @@ namespace VendaImoveis.Application.Services
         IVendaService
     {
         private readonly IAnuncioRepository _anuncioRepository;
+
         public VendaService(IVendaRepository repository,
                             IMapper mapper,
                             IUnitOfWork unitOfWork,

@@ -1,39 +1,48 @@
 ﻿using FluentValidation;
-using VendaImoveis.Application.Common.Interfaces;
 using VendaImoveis.Application.Extensions;
+using VendaImoveis.Application.Interfaces.Common;
 using VendaImoveis.Application.Mappers;
+using VendaImoveis.Application.Options;
 using VendaImoveis.Application.Services.Common;
 using VendaImoveis.Application.Token;
 using VendaImoveis.Application.Validations;
 using VendaImoveis.Domain.Interfaces.Common;
+using VendaImoveis.Domain.Interfaces.Storage;
 using VendaImoveis.Infrastructure.Repositories.Common;
+using VendaImoveis.Infrastructure.Storage;
 using VendaImoveis.Infrastructure.UnitOfWork;
 
 namespace VendaImoveis.API.Configuration
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection ResolveDependencies(this IServiceCollection services)
+        public static IServiceCollection ResolveDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-
+            //storage
+            services.AddSingleton<IFileStorage, FileStorage>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddHttpContextAccessor();
 
+            //options
+            services.Configure<FileSettings>(configuration.GetSection("FileSettings"));
+
+            //repositores and services
             services.AddRepositoriesAutomatically();
             services.AddServicesAutomatically();
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IBaseReadOnlyRepository<>), typeof(BaseReadOnlyRepository<>));
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
             services.AddScoped(typeof(ICrudService<,,,,>), typeof(CrudService<,,,,>));
             services.AddScoped(typeof(IReadOnlyService<,,,,>), typeof(ReadOnlyService<,,,,>));
+
+            //uow
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //tokenGenerator
             services.AddScoped<ITokenGenerator, TokenGenerator>();
 
+            //mapper and fluentValidation
             services.AddAutoMapper(typeof(VendaImoveisProfile));
             services.AddValidatorsFromAssemblyContaining<PropriedadeRequestValidator>();
-
 
             return services;
         }

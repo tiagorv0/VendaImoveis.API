@@ -1,4 +1,4 @@
-﻿using VendaImoveis.Application.Common.Interfaces;
+﻿using VendaImoveis.Application.Interfaces.Common;
 using VendaImoveis.Application.Params.Params;
 using VendaImoveis.Application.Params.Search;
 using VendaImoveis.Application.ViewModels.Anuncio;
